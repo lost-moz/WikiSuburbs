@@ -1,0 +1,86 @@
+<!DOCTYPE html><!-- Defines document as a html file -->
+<html><!-- Where the html code goes -->
+<head><!-- Where title, style, link, and meta tags go -->
+<title>wikiSuburbs</title><!-- Names the tab wikiSuburbs -->
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet"><!-- Exports a google font-->
+<link href="https://fonts.googleapis.com/css2?family=Scope+One&display=swap" rel="stylesheet"><!-- Export a google font -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Changes the format of the website depending on its window size -->
+<style><!-- Internal CSS code for the website style -->
+body {
+	font-family: 'Scope One', serif;
+	}
+h1{
+	text-align:center;
+	font-size:40px;
+	font-family: 'Space Mono', monospace;
+	}
+table{
+	width:100%;
+	border-collapse:collapse;
+	}
+th{
+	border-bottom:1px solid;
+	color: black;
+	background-color: #ffffff;
+	}
+td{
+	border:1px solid;
+	}
+tr:nth-child(even){
+	background-color: #83c5be;
+	}
+tr:nth-child(odd){
+	background-color: #edf6f9;
+	}
+tr:hover{
+	background-color: #006d77;
+	color: #ffffff;
+	}
+</style>
+
+</head>
+<body><!-- Where the contents of the page goes -->
+<h1>wikiSuburbs</h1><!-- Adds the title wikiSuburbs to the start of the webpage -->
+<form action="/" method=POST><!-- Refreshes the website for the user when user inputs data -->
+<label>Filter by suburb:
+<input list="sub" name="sub" value="{{ search }}" /></label><!-- Creates a text box input -->
+<datalist id="sub"><!-- Shows data imbedded within the tags as a drop down box when user is typing inside the text box input -->
+	{% for value in subs %}<!-- Loops through distinct suburbs in main table -->
+	<option value="{{ value }}">{{ value }}</option><!-- Creates an option that equals a distinct suburb -->
+	{% endfor %}
+</datalist>
+<input type="checkbox" id="Boat Ramp" name="structuretype" value="Boat Ramp" checked><!-- Creates a check box for boat ramps -->
+<label for="Boat Ramp"> Boat Ramps</label>
+<input type="checkbox" id="Library" name="structuretype" value="Library" checked><!-- Creates a check box for libraries -->
+<label for="Library"> Libraries</label>
+<input type="checkbox" id="Park" name="structuretype" value="Park" checked><!-- Creates a check box for parks -->
+<label for="Park"> Parks</label>
+<input type="checkbox" id="Hotspot" name="structuretype" value="Hotspot" checked><!-- Creates a check box for hotspots -->
+<label for="Hotspot"> Hotspots</label>
+<input type="checkbox" id="School" name="structuretype" value="School" checked><!-- Creates a check box for schools-->
+<label for="School"> Schools</label>
+<input type="submit" value="Submit"><!-- Creates a submit button -->
+</form>
+{% if error %}<!-- If the error variable is not left empty then do: -->
+<p><strong>Error: </strong>{{ error }}</p><!-- Creates an error message -->
+{% endif %}
+<table><!-- Creates a table element -->
+	<tr><!-- Heading of the table -->
+		<th>ID</th>
+		<th>SUBURB</th>
+		<th>ADDRESS</th>
+		<th>NAME</th>
+		<th>STRUCTURE</th>
+	</tr>
+	{% for record in records %}<!-- Loops through all rows in the main table -->
+	<tr>
+		{% for value in record %}<!-- Loops through all the data in each row in the main table -->
+		<td>{{ value }}</td><!-- Adds each data in the main table into the html table element -->
+		{% endfor %}
+	</tr>
+	{% endfor %}
+</table>
+
+</body>
+</html>
